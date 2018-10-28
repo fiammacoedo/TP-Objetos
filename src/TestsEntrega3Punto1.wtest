@@ -1,0 +1,33 @@
+import arma.*
+import armadura.*
+import collarDivino.*
+import cotaDeMalla.*
+import fuerzaOscura.*
+import hechizoDeLogos.*
+import libroDeHechizosYEspejo.*
+import mascara.*
+import personaje.*
+
+describe "Tests Entrega 3 Punto 1"{
+	var unHechizoComercial
+	var espectroMalefico
+	var furibunda
+	
+	fixture{
+		unHechizoComercial = new HechizoComercial("El hechizo comercial",2)
+		espectroMalefico = new HechizoDeLogos("Espectro Malefico",3)
+		furibunda = new Personaje(unHechizoComercial,[],200)
+	}
+	
+	test "Saber el nivel de hechiceria de Furibunda"{
+		assert.equals(29,furibunda.nivelHechiceria())
+	}
+	
+	test "Saber si el hechizo comercial es poderoso"{
+		assert.notThat(unHechizoComercial.esPoderoso())
+	}
+	
+	test "Saber si el espectro malefico es poderoso"{
+		assert.that(espectroMalefico.esPoderoso())
+	}
+}

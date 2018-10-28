@@ -1,0 +1,36 @@
+import arma.*
+import armadura.*
+import collarDivino.*
+import cotaDeMalla.*
+import fuerzaOscura.*
+import hechizoDeLogos.*
+import libroDeHechizosYEspejo.*
+import mascara.*
+import personaje.*
+import feriaDeHechiceria.*
+
+describe "Tests Entrega 3 Punto 3"{
+	var navi
+	var ashleyGraham
+	var mascaraClara
+	
+	fixture{
+		mascaraClara = new Mascara(4,0,0)
+		navi = new NPC(hechizoBasico,[],200,facil)
+		ashleyGraham = new NPC(hechizoBasico,[mascaraClara],200,moderado)
+		ashleyGraham.valorBaseLucha(5)
+	}
+	
+	test "Conocer la habilidad para la lucha de Navi"{
+		assert.equals(1,navi.valorLucha())
+	}
+	
+	test "Conocer la habilidad para la lucha de Ashley Graham"{
+		assert.equals(18,ashleyGraham.valorLucha())
+	}
+	
+	test "Hacer que Ashley Graham tenga dificultad dificil. Conocer su habilidad para la lucha"{
+		ashleyGraham.tipoNPC(dificil)
+		assert.equals(36,ashleyGraham.valorLucha())	
+	}
+}

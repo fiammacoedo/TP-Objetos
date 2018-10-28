@@ -1,0 +1,100 @@
+import arma.*
+import armadura.*
+import collarDivino.*
+import cotaDeMalla.*
+import fuerzaOscura.*
+import hechizoDeLogos.*
+import libroDeHechizosYEspejo.*
+import mascara.*
+import personaje.*
+
+describe "Pruebas Test 1"{
+	var espectroMalefico
+	var rolando
+	var collarDivino
+	var mascaraOscura
+	var espadaDelDestino
+	
+	fixture{
+		espadaDelDestino = new Arma(0,0)
+		mascaraOscura = new Mascara(0,0,1)
+		collarDivino = new CollarDivino(0,0)
+		espectroMalefico = new HechizoDeLogos("Espectro Malefico",1)
+		rolando = new Personaje(espectroMalefico,[],0)
+	}
+	
+	test "Conocer nivel de hechicería de Rolando" {
+		assert.equals(56,rolando.nivelHechiceria())
+	}
+
+	test "Cambiar nombre de espectro maléfico a 
+		 'espectro superrecontramalefico muajajaja', luego
+		 conocer el nivel de hechiceria de Rolando" {
+		 espectroMalefico.nombre("espectro superrecontramalefico muajajaja")
+	 	 assert.equals(125,rolando.nivelHechiceria())
+	}
+
+
+	test "Cambiar hechizo preferido de Rolando a hechizo básico,
+		 luego conocer el nivel de hechiceria de Rolando" {
+	 	 rolando.hechizoPreferido(hechizoBasico)
+	 	 assert.equals(35,rolando.nivelHechiceria())
+	}
+
+
+	test "Hacer que ocurra un eclipse, luego conocer
+		 el nivel de hechiceria de Rolando" {
+	 	 fuerzaOscura.eclipse()
+		 assert.equals(61,rolando.nivelHechiceria())
+	}
+
+
+	test "Saber si el espectro maléfico es poderoso" {
+		 assert.that(espectroMalefico.esPoderoso())
+	}
+
+	test "Cambiar el nombre del espectro maléfico a
+		 'pepe', luego saber si el espectro maléfico
+	 	es poderoso" {
+	 	espectroMalefico.nombre("pepe")
+	 	assert.notThat(espectroMalefico.esPoderoso())
+	}
+
+	test "Saber si el hechizo básico es poderoso"{
+		 assert.notThat(hechizoBasico.esPoderoso())
+	}
+	
+	test "Eliminar todos los artefactos de Rolando, luego conocer su habilidad para la lucha" {
+		rolando.artefactos().clear()
+		assert.equals(1,rolando.valorLucha())
+	}
+
+	test "Conocer habilidad para la lucha de Rolando con todos los artefactos"{
+		rolando.artefactos([espadaDelDestino,collarDivino,mascaraOscura])
+		assert.equals(13,rolando.valorLucha())
+	}
+
+	test "Cambiar la cantidad de perlas del collar divino a 3, luego conocer la habilidad
+		para la lucha de Rolando"{
+		rolando.artefactos([espadaDelDestino,collarDivino,mascaraOscura])
+		collarDivino.cantidadDePerlas(3)
+		assert.equals(11,rolando.valorLucha())
+}
+
+	test "Cambiar valor base de lucha de Rolando a 8, luego conocer su habilidad de lucha"{
+		rolando.artefactos([espadaDelDestino,collarDivino,mascaraOscura])
+		rolando.valorBaseLucha(8)
+		assert.equals(20,rolando.valorLucha())
+	}
+
+	test "Hacer que ocurra un eclipse, luego conocer el valor de lucha de la mascara oscura"{
+		fuerzaOscura.eclipse()
+		assert.equals(5,mascaraOscura.unidadesDeLucha(rolando))
+	}
+
+	test "Eliminar la mascara oscura de los artefactos de Rolando, luego conocer su habilidad de lucha"{
+		rolando.artefactos([espadaDelDestino,collarDivino,mascaraOscura])
+		rolando.artefactos().remove(mascaraOscura)
+		assert.equals(9,rolando.valorLucha())
+	}
+}

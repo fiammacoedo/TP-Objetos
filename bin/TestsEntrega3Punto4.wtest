@@ -1,0 +1,78 @@
+import arma.*
+import armadura.*
+import collarDivino.*
+import cotaDeMalla.*
+import fuerzaOscura.*
+import hechizoDeLogos.*
+import libroDeHechizosYEspejo.*
+import mascara.*
+import personaje.*
+import feriaDeHechiceria.*
+
+describe "Tests Entrega 3 Punto 4"{
+	var pastoriza
+	var prieto
+	var fermepin
+	var mascaraOscura
+	var ursula
+	var armaduraConCotaDeMalla
+	var cotaDeMalla
+	
+	fixture{
+		cotaDeMalla = new CotaDeMalla(5)
+		mascaraOscura = new Mascara(3,0,1)
+		armaduraConCotaDeMalla = new Armadura(10,0,cotaDeMalla,2)
+		ursula = new Personaje(hechizoBasico,[mascaraOscura,armaduraConCotaDeMalla],200)
+		pastoriza = new Comerciante(independiente,9,5)
+		prieto = new Comerciante(registrado,0,5)
+		fermepin = new Comerciante(impuestoALasGanancias,0,5)
+	}
+	
+	test "Ursula compra la mascara oscura a Pastoriza. Saber cuantas monedas le quedan"{
+		ursula.comprarArtefacto(mascaraOscura,pastoriza)
+		assert.equals(89.1,ursula.monedas())
+	}
+	
+	test "Ursula compra la mascara oscura a Prieto. Saber cuantas monedas le quedan"{
+		ursula.comprarArtefacto(mascaraOscura,prieto)
+		assert.equals(87.9,ursula.monedas())
+	}
+	
+	test "Ursula compra la mascara oscura a Fermepin. Saber cuantas monedas le quedan"{
+		ursula.comprarArtefacto(mascaraOscura,fermepin)
+		assert.equals(88.25,ursula.monedas())
+	}
+	
+	test "Recategorizar a Pastoriza. Hacer que Ursula le compre la mascara oscura.
+		 Saber cuantas monedas le quedan"{
+		 pastoriza.recategorizar()
+		 ursula.comprarArtefacto(mascaraOscura,pastoriza)
+		 assert.equals(88.2,ursula.monedas())
+	}
+	
+	test "Recategorizar 2 veces a Pastoriza. Hacer que Ursula le compre la mascara oscura.
+		 Saber cuantas monedas le quedan"{
+		 pastoriza.recategorizar()
+		 pastoriza.recategorizar()
+		 ursula.comprarArtefacto(mascaraOscura,pastoriza)
+		 assert.equals(87.9,ursula.monedas())
+	}
+	
+	test "Recategorizar a Prieto. Hacer que Ursula le compre la mascara oscura.
+		 Saber cuantas monedas le quedan"{
+		 prieto.recategorizar()
+		 ursula.comprarArtefacto(mascaraOscura,prieto)
+		 assert.equals(88.25,ursula.monedas())
+	}
+	
+	test "Recategorizar a Fermepin. Ursula compra la mascara oscura a Fermepin.
+		 Saber cuantas monedas le quedan"{
+		fermepin.recategorizar()
+		ursula.comprarArtefacto(mascaraOscura,fermepin)
+		assert.equals(88.25,ursula.monedas())
+	}
+	
+	
+	
+	
+}
